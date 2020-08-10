@@ -1,0 +1,72 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Rock-Paper-Scissors</title>
+    <meta name="description" content="Rock-Paper-Scissors">
+    <meta name="author" content="AlexKAryasov">
+
+    <link rel="stylesheet" href="css/styles.css?v=1.0">
+
+</head>
+
+<body>
+    <script>
+
+        let playArray = ["rock", "paper", "scissors"]
+        let computerPlay = playArray => playArray[Math.floor(Math.random() * playArray.length)]
+
+        function play(userDecision, computerDecision) {
+            let result
+            userDecision = userDecision.toLowerCase()
+            if (userDecision === "rock") {
+                if (computerDecision === "paper") {
+                    result = "You lost! Paper beats rock!"
+                } else if (computerDecision === "scissors") {
+                    result = "You won! Rock beats scissors"
+                } else {
+                    result = "It's a draw"
+                }
+            } else if (userDecision === "paper") {
+                if (computerDecision === "scissors") {
+                    result = "You lost! scissors beats paper!"
+                } else if (computerDecision === "rock") {
+                    result = "You won! Paper beats rock"
+                } else {
+                    result = "It's a draw"
+                }
+            } else if (userDecision === "scissors") {
+                if (computerDecision === "rock") {
+                    result = "You lost! rock beats scissors!"
+                } else if (computerDecision === "paper") {
+                    result = "You won! scissors beats paper"
+                } else {
+                    result = "It's a draw"
+                }
+            } else {
+                result = "Please, write rock, paper or scissors!"
+            }
+
+            return result
+        }
+
+        function game() {
+            for (let i = 0; i < 5; i++) {
+                let userDecision = prompt("Choose your destiny!", "rock");
+                let playResult = play(userDecision, computerPlay(playArray))
+                console.log(playResult)
+            }
+        }
+
+
+    //   function computerPlay() {
+    //       let playArray = ["rock", "paper", "scissors"]
+    //       let computerDecision = playArray[Math.floor(Math.random()*playArray.length)]
+    //   }
+    </script>
+</body>
+
+</html>
