@@ -14,35 +14,51 @@
 </head>
 
 <body>
+    <div id="game-container">
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+        <div id="player-score"></div>
+        <div id="computer-score"></div>
+    </div>
     <script>
 
         let playArray = ["rock", "paper", "scissors"]
         let computerPlay = playArray => playArray[Math.floor(Math.random() * playArray.length)]
+        let playerScore = 0
+        let computerScore = 0
 
-        function play(userDecision, computerDecision) {
+        function playRound(e) {
             let result
-            userDecision = userDecision.toLowerCase()
+            let computerDecision = computerPlay(playArray)
+            userDecision = e.target.id
             if (userDecision === "rock") {
                 if (computerDecision === "paper") {
                     result = "You lost! Paper beats rock!"
+                    computerScore++
                 } else if (computerDecision === "scissors") {
                     result = "You won! Rock beats scissors"
+                    playerScore++
                 } else {
                     result = "It's a draw"
                 }
             } else if (userDecision === "paper") {
                 if (computerDecision === "scissors") {
                     result = "You lost! scissors beats paper!"
+                    computerScore++
                 } else if (computerDecision === "rock") {
                     result = "You won! Paper beats rock"
+                    playerScore++
                 } else {
                     result = "It's a draw"
                 }
             } else if (userDecision === "scissors") {
                 if (computerDecision === "rock") {
                     result = "You lost! rock beats scissors!"
+                    computerScore++
                 } else if (computerDecision === "paper") {
                     result = "You won! scissors beats paper"
+                    playerScore++
                 } else {
                     result = "It's a draw"
                 }
@@ -50,22 +66,32 @@
                 result = "Please, write rock, paper or scissors!"
             }
 
-            return result
-        }
+            let container = document.querySelector('#game-container')
+            let para = document.createElement('p')
+            para.textContent = result
+            container.appendChild(para)
 
-        function game() {
-            for (let i = 0; i < 5; i++) {
-                let userDecision = prompt("Choose your destiny!", "rock");
-                let playResult = play(userDecision, computerPlay(playArray))
-                console.log(playResult)
+            let playerScoreDiv = document.querySelector("#player-score")
+            playerScoreDiv.textContent = `Your score: ${playerScore}`
+
+            let computerScoreDiv = document.querySelector("#computer-score")
+            computerScoreDiv.textContent = `Your opponent's score: ${computerScore}`
+
+
+            if (playerScore === 5 || computerScore === 5) {
+                let gameResultPara = document.createElement('p') 
+                gameResultPara.textContent = (playerScore === 5) ? "Congrats, you won!" : "Better luck next time"
+                container.appendChild(gameResultPara)
+                playerScore = 0
+                computerScore = 0
             }
         }
 
-
-    //   function computerPlay() {
-    //       let playArray = ["rock", "paper", "scissors"]
-    //       let computerDecision = playArray[Math.floor(Math.random()*playArray.length)]
-    //   }
+        let buttons = document.querySelectorAll('button');
+        buttons.forEach(button => {
+            console.log(button)
+            button.addEventListener('click', playRound)
+        })
     </script>
 </body>
 
